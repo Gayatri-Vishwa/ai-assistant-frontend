@@ -33,7 +33,7 @@ const navigate=useNavigate()
           }
         result.data && console.log("log in successful");
         console.log("log in response:", result.data);
-        setUserData(result.data);
+        // setUserData(result.data);
           // setUserData({ ...res.data.user, token: res.data.token });
           setUserData({ ...result.data.user, token: result.data.token });
 
