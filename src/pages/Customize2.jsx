@@ -33,18 +33,22 @@ function Customize2() {
       //     // headers: { "Content-Type": "multipart/form-data" },
       //   }
       // );
+     const result = await axios.put(`${serverUrl}/api/user/update`, formData, {
+  withCredentials: true, // COOKIE AUTH
+});
+
 
 // Frontend
-const result = await axios.put(
-  `${serverUrl}/api/user/update`,
-  formData,
-  {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${userData.token}` // token saved from login/signup
-    }
-  }
-);
+// const result = await axios.put(
+//   `${serverUrl}/api/user/update`,
+//   formData,
+//   {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//       Authorization: `Bearer ${userData.token}` // token saved from login/signup
+//     }
+//   }
+// );
 
 
 
