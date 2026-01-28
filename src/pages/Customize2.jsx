@@ -25,17 +25,20 @@ function Customize2() {
         formData.append("imageUrl", selectedImage);      // prebuilt URL
       }
 
-      // const result = await axios.post(
-      //   `${serverUrl}/api/user/update`,
-      //   formData,
-      //   {
-      //     withCredentials: true,
-      //     // headers: { "Content-Type": "multipart/form-data" },
-      //   }
-      // );
-     const result = await axios.put(`${serverUrl}/api/user/update`, formData, {
-  withCredentials: true, // COOKIE AUTH
-});
+      const result = await axios.put(
+        `${serverUrl}/api/user/update`,
+        formData,
+        {
+          withCredentials: true,
+          // headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+
+
+//      const result = await axios.put(`${serverUrl}/api/user/update`, formData, {
+//   withCredentials: true, // COOKIE AUTH
+// });
 
 
 // Frontend
