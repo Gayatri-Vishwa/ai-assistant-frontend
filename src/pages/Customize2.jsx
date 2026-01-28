@@ -25,30 +25,32 @@ function Customize2() {
         formData.append("imageUrl", selectedImage);      // prebuilt URL
       }
 
-      const result = await axios.post(
-        `${serverUrl}/api/user/update`,
-        formData,
-        {
-          withCredentials: true,
-          // headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      // const result = await axios.post(
+      //   `${serverUrl}/api/user/update`,
+      //   formData,
+      //   {
+      //     withCredentials: true,
+      //     // headers: { "Content-Type": "multipart/form-data" },
+      //   }
+      // );
 
 
 
 
 
 // Frontend
-// const result = await axios.post(
-//   `${serverUrl}/api/user/update`,
-//   formData,
-//   {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//       Authorization: `Bearer ${userData.token}` // token saved from login/signup
-//     }
-//   }
-// );
+const token = localStorage.getItem("token");
+
+await axios.post(
+  "https://ai-assistant-chi-wheat.vercel.app/api/user/update",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
 
 
