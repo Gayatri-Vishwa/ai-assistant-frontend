@@ -39,16 +39,16 @@ function Customize2() {
 
 
 // Frontend
-// const result = await axios.post(
-//   `${serverUrl}/api/user/update`,
-//   formData,
-//   {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//       Authorization: `Bearer ${userData.token}` // token saved from login/signup
-//     }
-//   }
-// );
+axios.post(
+  "/api/user/update",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
 
 
