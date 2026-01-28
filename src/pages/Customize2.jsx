@@ -33,6 +33,15 @@ function Customize2() {
           // headers: { "Content-Type": "multipart/form-data" },
         }
       );
+
+// Frontend
+// axios.put("https://ai-assistant-chi-wheat.vercel.app/api/user/update", data, {
+//   headers: { Authorization: `Bearer ${token}` }
+// });
+
+
+
+
       console.log(result.data);
       setUserData(result.data);
       setloading(false);
