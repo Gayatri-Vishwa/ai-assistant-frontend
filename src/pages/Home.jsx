@@ -632,7 +632,7 @@ const isApiCallingRef = useRef(false);
  <div className="w-full h-1 fixed top-[30%] bg-gray-400 mt-7">
            {/* <div className="w-full h-1 fixed top-[30%] bg-gray-400 mt-7"></div> */}
           <h1 className="text-white fixed top-[30%] font-semibold text-[19px] m-7">History</h1>
-          <div className="w-full h-[60%] fixed top-[40%] z-50 overflow-y-auto  flex flex-col gap-[20px] ">
+          <div className="w-full h-[60%] fixed top-[40%] z-50 overflow-y-auto overflow-x-auto  flex flex-col gap-[20px] ">
             {userData.history &&
               userData.history.map((his, idx) => (
                 <span
