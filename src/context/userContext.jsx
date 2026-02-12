@@ -13,9 +13,11 @@ function UserContext({ children }) {
   const [historyy, setHistoryy] = useState([]); 
 
 
+axios.defaults.withCredentials = true;
 
-  // const serverUrl = "http://localhost:8000";
-  const serverUrl = "https://ai-assistant-chi-wheat.vercel.app";
+  const serverUrl = "https://ai-assistant-se75.onrender.com";
+  // const serverUrl = "https://ai-assistant-chi-wheat.vercel.app";
+  
 
   const handleCurrentUser = async () => {
     try {
