@@ -12,49 +12,57 @@ function UserContext({ children }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [historyy, setHistoryy] = useState([]); 
 
-  const serverUrl = "https://assistant-backend-mocha.vercel.app";
 
-  // ✅ Create axios instance with Bearer token interceptor
-  const axiosInstance = axios.create({
-    baseURL: serverUrl,
-    withCredentials: true,
-  });
 
-  // ✅ Add token to Authorization header for EVERY request
-  axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-      console.log("✅ Bearer token added to request");
-    }
-    return config;
-  });
+  // const serverUrl = "http://localhost:8000";
+  const serverUrl = "https://ai-assistant-chi-wheat.vercel.app";
 
   const handleCurrentUser = async () => {
     try {
-      const result = await axiosInstance.get(`/api/user/current`);
+      const result = await axios.get(`${serverUrl}/api/user/current`, {
+        withCredentials: true,
+      });
       setUserData(result.data);
-      console.log("✅ Current user fetched:", result.data);
+      // console.log(result.data);
     } catch (error) {
-      console.error("❌ Current user error:", error.message);
-      setUserData(null);
+      console.log(error);
     }
   };
 
+
+  /////mine
+  // const getGeminiResponse = async (command) => {
+  //   try {
+  //     const result = await axios.post(
+  //       `${serverUrl}/api/user/asktoassistant`,
+  //       { command },
+  //       { withCredentials: true }
+  //     );
+  //     return result.data;
+  //   } catch (error) {
+  //     console.log(error)
+  //       return {
+  //       success: false,
+  //       response: "Assistant failed to respond",
+  //     };
+      
+  //   }
+  // };
 
   /////ggoole 
   const getGeminiResponse = async (command) => {
-    try {
-      const result = await axiosInstance.post(
-        `/api/user/asktoassistant`,
-        { command }
-      );
-      return result.data; // always has .response
-    } catch (error) {
-      console.error("🔥 Gemini request failed:", error.message);
-      return { response: "Assistant failed to respond" };
-    }
-  };
+  try {
+    const result = await axios.post(
+      `${serverUrl}/api/user/asktoassistant`,
+      { command },
+      { withCredentials: true }
+    );
+    return result.data; // always has .response
+  } catch (error) {
+    console.error("🔥 Gemini request failed:", error);
+    return { response: "Assistant failed to respond" };
+  }
+};
 
 
   useEffect(() => {
@@ -75,7 +83,6 @@ function UserContext({ children }) {
     getGeminiResponse,
     historyy,
     setHistoryy,
-    axiosInstance, // ✅ Export for use in pages
   };
 
   return (

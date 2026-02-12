@@ -10,6 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 import aiImg from "../assets/assistant.gif";
 import userImg from "../assets/user.gif";
 
+import axios from "axios";
 import { useEffect } from "react";
 
 function Home() {
@@ -25,7 +26,7 @@ function Home() {
     setShowHistory((prev) => !prev);
   };
 
-  const { serverUrl, setUserData, userData, getGeminiResponse, axiosInstance } =
+  const { serverUrl, setUserData, userData, getGeminiResponse } =
     useContext(userDataContext);
 
   //  const [listening, setListening] = useState(false);
@@ -70,7 +71,9 @@ const isApiCallingRef = useRef(false);
     setStatus("Sleeping");
 
     // Logout API
-    await axiosInstance.get(`/api/auth/logout`);
+    await axios.get(`${serverUrl}/api/auth/logout`, {
+      withCredentials: true,
+    });
 
     setUserData(null);
     navigate("/signup");
@@ -112,7 +115,9 @@ const isApiCallingRef = useRef(false);
 
   const clearHistory = async () => {
     try {
-      await axiosInstance.delete(`/api/user/clear-history`);
+      await axios.delete(`${serverUrl}/api/user/clear-history`, {
+        withCredentials: true,
+      });
 
       setUserData((prev) => ({
         ...prev,
