@@ -56,8 +56,8 @@ const result = await axios.post(
 );
 
 
-      // console.log(result.data);
-      setUserData(result.data.user);
+      // console.log(result.data.user);
+      setUserData(result.data);
       setloading(false);
       navigate('/')
     } catch (error) {
