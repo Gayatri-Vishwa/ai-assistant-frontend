@@ -1,8 +1,8 @@
-
-
 import { Navigate, Route, Routes } from "react-router-dom";
 import { lazy, useContext, Suspense } from "react";
 import { userDataContext } from "./context/userContext";
+import ProtectedRoute from "./ProtectedRoute";
+
 
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -22,15 +22,14 @@ function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-
         {/* PUBLIC */}
         <Route
           path="/signup"
-          element={!userData ? <SignUp /> : <Navigate to="/" />}
+          element={!userData ? <SignUp /> : <Navigate to="/customize" />}
         />
         <Route
           path="/signin"
-          element={!userData ? <SignIn /> : <Navigate to="/" />}
+          element={!userData ? <SignIn /> : <Navigate to="/customize" />}
         />
 
         {/* PROTECTED */}
@@ -43,40 +42,36 @@ function App() {
           element={userData ? <Customize2 /> : <Navigate to="/signin" />}
         />
 
-        {/* HOME */}
-        {/* <Route path="/" element={(userData?.assistantImage && userData?.assistantName )? <Home/>:<Navigate to={'/customize'}/>} /> */}
-        
-        <Route
+      
+        {/* <Route
           path="/"
           element={
             userData ? <Home /> : <Navigate to="/signin" />
           }
+        /> */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
         />
 
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Suspense>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Navigate, Route, Routes } from "react-router-dom"
 // // import SignIn from "./pages/SignIn"
@@ -94,7 +89,6 @@ export default App;
 
 // const Customize2 =lazy(()=>import('./pages/Customize2'))
 
-
 // function App() {
 //   const {userData}=useContext(userDataContext)
 
@@ -108,20 +102,18 @@ export default App;
 //         />
 //       </Routes>
 
-//     <Suspense  fallback={<div>Loading...</div>}> 
+//     <Suspense  fallback={<div>Loading...</div>}>
 //    <Routes>
-      
+
 //      <Route path="/" element={(userData?.assistantImage && userData?.assistantName )? <Home/>:<Navigate to={'/customize'}/>} />
 //     {/* <Route path="/signup" element={!userData? <SignUp/> :<Navigate to={'/'}/>} /> */}
 //     <Route path="/signin" element={!userData? <SignIn/> :<Navigate to={'/'}/>} />
-  
+
 //     <Route path="/customize" element={userData?<Customize/>: <Navigate to={'/signup'}/> }/>
 //     <Route path="/customize2" element={userData?<Customize2/>: <Navigate to={'/signup'}/> }/>
 
-
 //    </Routes>
 // </Suspense>
-
 
 //     </>
 //   )

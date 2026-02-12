@@ -14,9 +14,24 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function Home() {
+  const hasStarted = useRef(false);
+  const recognitionRef = useRef(null);
+
+  useEffect(() => {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+
+    if (recognitionRef.current) {
+      recognitionRef.current.start();
+      console.log("🎧 Mic started via top-level useRef");
+    }
+  }, []);
+
+
+  
   const navigate = useNavigate();
   const [status, setStatus] = useState("Sleeping");
-  const [speechAllowed, setSpeechAllowed] = useState(false);
+  // const [speechAllowed, setSpeechAllowed] = useState(false);
   const [hamb, setHamb] = useState(false);
   const [userText, setUserText] = useState("");
   const [aiText, setAiText] = useState("");
@@ -31,7 +46,7 @@ function Home() {
 
   //  const [listening, setListening] = useState(false);
   const isSpeakingRef = useRef(false);
-  const recognitionRef = useRef(null);
+  // const recognitionRef = useRef(null);
   const synth = window.speechSynthesis;
   const isRecognizingRef = useRef(false);
 const isApiCallingRef = useRef(false);
@@ -84,35 +99,7 @@ const isApiCallingRef = useRef(false);
   }
 };
 
-  // const handleLogout = async () => {
-  //   try {
-  //     // Stop speech synthesis if speaking
-  //     if (window.speechSynthesis) window.speechSynthesis.cancel();
-
-  //     // Stop mic if active
-  //     if (recognitionRef.current) {
-  //       try {
-  //         recognitionRef.current.abort(); // safe way to stop mic immediately
-  //         console.log("🛑 Mic stopped on logout");
-  //       } catch (e) {
-  //         console.warn("Mic stop error on logout:", e);
-  //       }
-  //     }
-
-  //     // Logout API
-  //     await axios.get(`${serverUrl}/api/auth/logout`, {
-  //       withCredentials: true,
-  //     });
-
-  //     setUserData(null);
-  //     navigate("/signup");
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setUserData(null);
-  //   }
-  // };
-
+ 
   const clearHistory = async () => {
     try {
       await axios.delete(`${serverUrl}/api/user/clear-history`, {
@@ -381,197 +368,7 @@ const isApiCallingRef = useRef(false);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ===================================================================rough check=========================
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//     const speak = (text) => {   //   //////////////////////////yhase rough h
-//   if (!text) return;
-
-//   const synth = window.speechSynthesis;
-//   synth.cancel();
-
-//   const utter = new SpeechSynthesisUtterance(text);
-//   utter.lang = "hi-IN";
-
-//   const voices = synth.getVoices();
-//   const hindiVoice = voices.find((v) => v.lang === "hi-IN");
-//   if (hindiVoice) utter.voice = hindiVoice;
-
-//   // stop mic before speaking
-//   if (recognitionRef.current) {
-//     try {
-//       recognitionRef.current.abort();
-//     } catch {}
-//   }
-
-//   isSpeakingRef.current = true;
-
-//   utter.onstart = () => {
-//     setStatus("Speaking");
-//   };
-
-//   utter.onend = () => {
-//     isSpeakingRef.current = false;
-//     setAiText("");
-//     setStatus("Listening");
-
-//     // restart mic ONLY HERE
-//     setTimeout(() => {
-//       if (
-//         recognitionRef.current &&
-//         !isRecognizingRef.current &&
-//         !isApiCallingRef.current
-//       ) {
-//         try {
-//           recognitionRef.current.start();
-//         } catch {}
-//       }
-//     }, 1500);
-//   };
-
-//   synth.speak(utter);
-// };
-
-
-// const handleCommand = (data) => {
-//   if (!data || typeof data !== "object") {
-//     speak("Sorry, I couldn't process that.");
-//     return;
-//   }
-
-//   const { type, userInput, response } = data;
-
-//   speak(response || "Okay");
-
-//   if (type === "calculator_open") {
-//     window.open("https://www.google.com/search?q=calculator", "_blank");
-//   }
-
-//   if (type === "instagram_open") {
-//     window.open("https://www.instagram.com/", "_blank");
-//   }
-
-//   if (type === "facebook_open") {
-//     window.open("https://www.facebook.com/", "_blank");
-//   }
-
-//   if (type === "weather_show") {
-//     window.open("https://www.google.com/search?q=weather", "_blank");
-//   }
-
-//   if (type === "google_search") {
-//     const q = encodeURIComponent(userInput);
-//     window.open(`https://www.google.com/search?q=${q}`, "_blank");
-//   }
-
-//   if (type === "youtube_search" || type === "youtube_play") {
-//     const q = encodeURIComponent(userInput);
-//     window.open(
-//       `https://www.youtube.com/results?search_query=${q}`,
-//       "_blank"
-//     );
-//   }
-// };
-
-// useEffect(() => {
-//   const SpeechRecognition =
-//     window.SpeechRecognition || window.webkitSpeechRecognition;
-
-//   const recognition = new SpeechRecognition();
-//   recognition.continuous = false;
-//   recognition.lang = "en-US";
-//   recognition.interimResults = false;
-
-//   recognitionRef.current = recognition;
-
-//   recognition.onstart = () => {
-//     isRecognizingRef.current = true;
-//     setStatus("Listening");
-//   };
-
-//   recognition.onend = () => {
-//     isRecognizingRef.current = false;
-//   };
-
-//   recognition.onerror = () => {
-//     isRecognizingRef.current = false;
-//   };
-
-//   recognition.onresult = async (e) => {
-//     if (isApiCallingRef.current) return;
-
-//     const transcript =
-//       e.results[e.results.length - 1][0].transcript.trim();
-
-//     isApiCallingRef.current = true;
-//     setUserText(transcript);
-//     setStatus("Pausing");
-
-//     recognition.stop();
-
-//     let data;
-//     try {
-//       data = await getGeminiResponse(transcript);
-//     } catch {
-//       speak("Too many requests. Please wait.");
-//       isApiCallingRef.current = false;
-//       return;
-//     }
-
-//     if (!data) {
-//       speak("I didn't understand that.");
-//       isApiCallingRef.current = false;
-//       return;
-//     }
-
-//     setUserData((prev) =>
-//       prev
-//         ? { ...prev, history: [...(prev.history || []), transcript] }
-//         : prev
-//     );
-
-//     handleCommand(data);
-//     setAiText(data.response);
-//     setUserText("");
-
-//     // cooldown
-//     setTimeout(() => {
-//       isApiCallingRef.current = false;
-//     }, 2500);
-//   };
-
-//   setTimeout(() => {
-//     try {
-//       recognition.start();
-//     } catch {}
-//   }, 1000);
-
-//   return () => {
-//     recognition.stop();
-//     isRecognizingRef.current = false;
-//     isApiCallingRef.current = false;
-//   };
-// }, []);
-
-
+// =====================
 
 
 

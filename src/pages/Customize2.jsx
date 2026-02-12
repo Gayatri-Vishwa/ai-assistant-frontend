@@ -5,13 +5,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Customize2() {
-  const { userData,setUserData,selectedImage, serverUrl, backendImage } =
+  const { userData, setUserData, selectedImage, serverUrl, backendImage } =
     useContext(userDataContext);
   const [assistantName, setAssistantName] = useState(
-    userData?.assistantName || ""
+    userData?.assistantName || "",
   );
   const [loading, setloading] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleUpdateAssistant = async () => {
     try {
@@ -20,48 +20,24 @@ function Customize2() {
       formData.append("assistantName", assistantName);
 
       if (backendImage) {
-        formData.append("assistantImage", backendImage);  // actual file // because in multer,we naed it same  "assistantImage" 
+        formData.append("assistantImage", backendImage); // actual file // because in multer,we naed it same  "assistantImage"
       } else {
-        formData.append("imageUrl", selectedImage);      // prebuilt URL
+        formData.append("imageUrl", selectedImage); // prebuilt URL
       }
 
-      // const result = await axios.post(
-      //   `${serverUrl}/api/user/update`,
-      //   formData,
-      //   {
-      //     withCredentials: true,
-      //     // headers: { "Content-Type": "multipart/form-data" },
-      //   }
-      // );
+      const result = await axios.post(
+        `${serverUrl}/api/user/update`,
+        formData,
+        {
+          withCredentials: true,
+        },
+      );
 
-
-
-
-
-// Frontend
-// const token = localStorage.getItem("token"); // saved on login
-// const result=await axios.post(`${serverUrl}/api/user/update`, formData, {
-//   headers: {
-//     // Authorization: `Bearer ${token}`,
-//     "Content-Type": "multipart/form-data",
-//   },
-// });
-
-const result = await axios.post(
-  `${serverUrl}/api/user/update`,
-  formData,
-  {
-    withCredentials: true,   // ⭐⭐⭐ MOST IMPORTANT
-  }
-);
-
-
-      // console.log(result.data.user);
       setUserData(result.data);
       setloading(false);
-      navigate('/')
+      navigate("/");
     } catch (error) {
-      console.log("update error",error)
+      console.log("update error", error);
     } finally {
       setloading(false);
     }
@@ -69,9 +45,10 @@ const result = await axios.post(
 
   return (
     <div className="w-full  relative min-h-screen bg-gradient-to-t from-black to-[#030368] flex flex-col justify-center items-center py-10 px-4">
-     
-     <IoMdArrowRoundBack  onClick={()=>navigate('/customize')}
-     className="absolute top-[30px] left-[30px] cursor-pointer text-white mb-[40px] w-[30px] h-[30px]"/>
+      <IoMdArrowRoundBack
+        onClick={() => navigate("/customize")}
+        className="absolute top-[30px] left-[30px] cursor-pointer text-white mb-[40px] w-[30px] h-[30px]"
+      />
       <h1 className="text-white text-4xl text-center mb-22">
         Enter Your <span className="text-blue-400"> Assistant Name</span>
       </h1>
@@ -89,11 +66,10 @@ const result = await axios.post(
           onClick={handleUpdateAssistant}
           className="max-w-[270px] text-white w-full h-[60px] bg-white text-black rounded-full text-[17px] font-semibold mt-[25px] cursor-pointer"
           style={{
-                background: "linear-gradient(90deg, #1b2a4b, #0f1a33)", // dark bluish gradient
-                boxShadow:
-                  "0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6", // subtle blue glow
-              }}
-       >
+            background: "linear-gradient(90deg, #1b2a4b, #0f1a33)", // dark bluish gradient
+            boxShadow: "0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6", // subtle blue glow
+          }}
+        >
           {loading ? "Loading..." : "Finally create Your Assistant"}
         </button>
       )}
