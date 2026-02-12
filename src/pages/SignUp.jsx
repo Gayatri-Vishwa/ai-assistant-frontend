@@ -31,10 +31,11 @@ const navigate=useNavigate()
           },{withCredentials:true});
 
           if(result.status===201){
+            localStorage.setItem('token', result.data.token);
+            setUserData(result.data.user);
             navigate('/customize')
           }
         result.data && console.log("Signup successful");
-        setUserData(result.data);
         console.log("Signup response:", result.data);
         setloading(false)
     } catch (error) {
