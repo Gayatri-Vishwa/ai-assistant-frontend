@@ -40,7 +40,7 @@ function Customize2() {
 
 // Frontend
 const token = localStorage.getItem("token"); // saved on login
-await axios.post(`${serverUrl}/api/user/update`, formData, {
+const result=await axios.post(`${serverUrl}/api/user/update`, formData, {
   headers: {
     Authorization: `Bearer ${token}`,
     "Content-Type": "multipart/form-data",
@@ -48,7 +48,7 @@ await axios.post(`${serverUrl}/api/user/update`, formData, {
 });
 
       // console.log(result.data);
-      // setUserData(result.data);
+      setUserData(result.data.user);
       setloading(false);
       navigate('/')
     } catch (error) {
