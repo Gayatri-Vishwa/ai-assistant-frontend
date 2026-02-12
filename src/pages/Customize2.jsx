@@ -39,13 +39,22 @@ function Customize2() {
 
 
 // Frontend
-const token = localStorage.getItem("token"); // saved on login
-const result=await axios.post(`${serverUrl}/api/user/update`, formData, {
-  headers: {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "multipart/form-data",
-  },
-});
+// const token = localStorage.getItem("token"); // saved on login
+// const result=await axios.post(`${serverUrl}/api/user/update`, formData, {
+//   headers: {
+//     // Authorization: `Bearer ${token}`,
+//     "Content-Type": "multipart/form-data",
+//   },
+// });
+
+const result = await axios.post(
+  `${serverUrl}/api/user/update`,
+  formData,
+  {
+    withCredentials: true,   // ⭐⭐⭐ MOST IMPORTANT
+  }
+);
+
 
       // console.log(result.data);
       setUserData(result.data.user);
