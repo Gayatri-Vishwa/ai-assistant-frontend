@@ -12,8 +12,10 @@ function UserContext({ children }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [historyy, setHistoryy] = useState([]); 
 
-
+// axios.defaults.baseURL = "https://ai-assistant-se75.onrender.com";
 axios.defaults.withCredentials = true;
+
+
 
   const serverUrl = "https://ai-assistant-se75.onrender.com";
   // const serverUrl = "https://ai-assistant-chi-wheat.vercel.app";
