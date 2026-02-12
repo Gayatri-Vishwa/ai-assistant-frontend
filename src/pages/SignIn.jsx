@@ -29,12 +29,13 @@ const navigate=useNavigate()
           },{withCredentials:true});
 
           if(result.status===200){
-            localStorage.setItem('token', result.data.token);
-            setUserData(result.data.user);
             navigate('/')
           }
         result.data && console.log("log in successful");
         console.log("log in response:", result.data);
+        // setUserData(result.data);
+          // setUserData({ ...res.data.user, token: res.data.token });
+          setUserData({ ...result.data.user, token: result.data.token });
 
         setloading(false)
     } catch (error) {

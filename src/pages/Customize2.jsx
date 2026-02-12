@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { userDataContext } from "../context/userContext";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Customize2() {
-  const { userData, setUserData, selectedImage, axiosInstance, backendImage } =
+  const { userData,setUserData,selectedImage, serverUrl, backendImage } =
     useContext(userDataContext);
   const [assistantName, setAssistantName] = useState(
     userData?.assistantName || ""
@@ -38,10 +39,13 @@ function Customize2() {
 
 
 // Frontend
-const result = await axiosInstance.post(
-  `/api/user/update`,
-  formData
-);
+const token = localStorage.getItem("token"); // saved on login
+await axios.post(`${serverUrl}/api/user/update`, formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "multipart/form-data",
+  },
+});
 
 
 

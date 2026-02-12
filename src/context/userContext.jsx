@@ -12,40 +12,50 @@ function UserContext({ children }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [historyy, setHistoryy] = useState([]); 
 
+
+
+  // const serverUrl = "http://localhost:8000";
   const serverUrl = "https://ai-assistant-chi-wheat.vercel.app";
-
-  // ✅ Create axios instance with Bearer token interceptor
-  const axiosInstance = axios.create({
-    baseURL: serverUrl,
-    withCredentials: true,
-  });
-
-  // ✅ Add token to Authorization header for EVERY request
-  axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
 
   const handleCurrentUser = async () => {
     try {
-      const result = await axiosInstance.get(`/api/user/current`);
+      const result = await axios.get(`${serverUrl}/api/user/current`, {
+        withCredentials: true,
+      });
       setUserData(result.data);
+      // console.log(result.data);
     } catch (error) {
       console.log(error);
-      setUserData(null);
     }
   };
 
 
+  /////mine
+  // const getGeminiResponse = async (command) => {
+  //   try {
+  //     const result = await axios.post(
+  //       `${serverUrl}/api/user/asktoassistant`,
+  //       { command },
+  //       { withCredentials: true }
+  //     );
+  //     return result.data;
+  //   } catch (error) {
+  //     console.log(error)
+  //       return {
+  //       success: false,
+  //       response: "Assistant failed to respond",
+  //     };
+      
+  //   }
+  // };
+
   /////ggoole 
   const getGeminiResponse = async (command) => {
   try {
-    const result = await axiosInstance.post(
-      `/api/user/asktoassistant`,
-      { command }
+    const result = await axios.post(
+      `${serverUrl}/api/user/asktoassistant`,
+      { command },
+      { withCredentials: true }
     );
     return result.data; // always has .response
   } catch (error) {
@@ -73,7 +83,6 @@ function UserContext({ children }) {
     getGeminiResponse,
     historyy,
     setHistoryy,
-    axiosInstance,
   };
 
   return (
