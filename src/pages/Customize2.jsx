@@ -47,13 +47,8 @@ await axios.post(`${serverUrl}/api/user/update`, formData, {
   },
 });
 
-
-
-
-
-
-      console.log(result.data);
-      setUserData(result.data);
+      // console.log(result.data);
+      // setUserData(result.data);
       setloading(false);
       navigate('/')
     } catch (error) {
