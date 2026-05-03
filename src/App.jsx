@@ -15,9 +15,9 @@ function App() {
   const { userData } = useContext(userDataContext);
 
   // ⏳ wait till auth resolved
-  if (userData === undefined) {
-    return <div>Checking auth...</div>;
-  }
+  // if (userData === undefined) {
+  //   return <div>Checking auth...</div>;
+  // }
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -43,20 +43,22 @@ function App() {
         />
 
       
-        {/* <Route
+        <Route
           path="/"
           element={
             userData ? <Home /> : <Navigate to="/signin" />
           }
-        /> */}
-        <Route
+        />
+
+        {/* <Route
           path="/"
           element={
             <ProtectedRoute>
               <Home />
+              
             </ProtectedRoute>
           }
-        />
+        /> */}
 
       
       </Routes>
