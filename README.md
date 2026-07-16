@@ -1,12 +1,69 @@
-# React + Vite
+# 🤖 AI Voice Assistant - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern AI-powered voice assistant built with **React.js** that allows users to interact using voice commands. The application leverages speech recognition, text-to-speech, and AI-generated responses to provide a seamless conversational experience through a clean, responsive, and interactive interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+* 🎙️ Voice Command Recognition
+* 🤖 AI-Powered Responses
+* 🔊 Text-to-Speech (Speech Synthesis)
+* 🎤 Speech-to-Text (Voice Input)
+* 💬 Real-Time AI Conversation
+* ⚡ Fast Response Generation
+* 📱 Fully Responsive Design
+* 🎨 Modern & Interactive User Interface
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+* React.js
+* Tailwind CSS
+* Axios
+* React Router DOM
+* Web Speech API (Speech Recognition)
+* Speech Synthesis API
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/Gayatri-Vishwa/AI-Virtual-Assistant-Frontend.git
+cd AI-Virtual-Assistant-Frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the project root and add:
+
+```env
+VITE_API_URL=https://ai-assistant-se75.onrender.com
+```
+
+---
+
+## 🌐 Live Demo
+
+**Frontend:** https://ai-assistant-frontend-ashen.vercel.app
+
+---
+
+## 🔗 Backend API
+
+**Backend:** https://ai-assistant-se75.onrender.com
+
+---
+
+## 👩‍💻 Author
+
+**Gayatri Vishwakarma**
+
+* Portfolio: https://portfolio-azure-gayatri.vercel.app/
+* GitHub: https://github.com/Gayatri-Vishwa
