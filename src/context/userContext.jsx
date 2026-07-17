@@ -36,7 +36,7 @@ axios.defaults.withCredentials = true;
 
 
 
-  /////ggoole 
+ 
   const getGeminiResponse = async (command) => {
   try {
     const result = await axios.post(

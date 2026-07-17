@@ -14,11 +14,7 @@ const Customize2 = lazy(() => import("./pages/Customize2"));
 function App() {
   const { userData } = useContext(userDataContext);
 
-  // ⏳ wait till auth resolved
-  // if (userData === undefined) {
-  //   return <div>Checking auth...</div>;
-  // }
-
+ 
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
@@ -50,15 +46,7 @@ function App() {
           }
         />
 
-        {/* <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-              
-            </ProtectedRoute>
-          }
-        /> */}
+    
 
       
       </Routes>

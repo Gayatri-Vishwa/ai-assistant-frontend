@@ -1,6 +1,3 @@
-// // /////imp histry
-
-// /////imp histry   vry vry imp code not to delete=======================
 
 import React, { useContext, useRef, useState } from "react";
 import { userDataContext } from "../context/userContext";
@@ -51,14 +48,6 @@ function Home() {
   const isRecognizingRef = useRef(false);
 const isApiCallingRef = useRef(false);
 
-  // const enableSpeech = () => {
-  //   synth.cancel();
-  //   const test = new SpeechSynthesisUtterance("Speech enabled!");
-  //   synth.speak(test);
-  //   isSpeakingRef.current = true;
-  //   setSpeechAllowed(true);
-  //   console.log(" Speech permission unlocked");
-  // };
 
 
   const handleLogout = async () => {
@@ -142,12 +131,12 @@ const isApiCallingRef = useRef(false);
 
     // Speech starts
     utter.onstart = () => {
-      console.log("🗣️ Speaking started");
+      console.log(" Speaking started");
       setStatus("Speaking"); // <---- moved here!
     };
 
     utter.onend = () => {
-      console.log("✅ Speech finished");
+      console.log("Speech finished");
       isSpeakingRef.current = false;
       setAiText("");
       setStatus("Pausing");
@@ -158,15 +147,15 @@ const isApiCallingRef = useRef(false);
           try {
             recognitionRef.current.start();
             setStatus("Listening");
-            console.log("🎧 Restarted listening after speaking");
+            console.log(" Restarted listening after speaking");
           } catch (err) {
-            console.warn("⚠️ Mic restart error:", err);
+            console.warn(" Mic restart error:", err);
           }
         }
       }, 1200);
     };
 
-    utter.onerror = (e) => console.log("❌ Speech error:", e);
+    utter.onerror = (e) => console.log(" Speech error:", e);
     synth.speak(utter);
   };
 
@@ -245,7 +234,7 @@ const isApiCallingRef = useRef(false);
           try {
             recognition.start();
             isRecognizingRef.current = true;
-            console.log("🎧 Safe recognition restart");
+            console.log(" Safe recognition restart");
             setStatus("Listening");
           } catch (err) {
             if (err.name !== "InvalidStateError") console.error(err);
@@ -260,31 +249,7 @@ const isApiCallingRef = useRef(false);
       setStatus("Listening");
     };
 
-    // recognition.onend = () => {
-    //   console.log("🎤 Recognition ended");
-    //   isRecognizingRef.current = false;
-
-    //   //  Restart after small delay (only if not speaking)
-    //   if (!isSpeakingRef.current) {
-    //     setTimeout(() => {
-    //       try {
-    //         // recognition.start();
-    //         safeRecognition();
-    //         console.log("🔁 Recognition restarted automatically");
-    //         setStatus("Listening");
-    //       } catch (error) {
-    //         if (error.name === "InvalidStateError") {
-    //           console.warn("Recognition already active");
-    //         } else {
-    //           console.error(error);
-    //         }
-    //       }
-    //     }, 800); // delay to let browser release mic
-    //   } else {
-    //     console.log(" Skipping restart because we’re speaking");
-    //   }
-    // };
-    recognition.onend = () => {
+   recognition.onend = () => {
   console.log("🎤 Recognition ended");
   isRecognizingRef.current = false;
 
@@ -303,7 +268,7 @@ const isApiCallingRef = useRef(false);
         setTimeout(() => {
           if (isMounted) {
             try {
-              // recognition.start()
+             
               safeRecognition();
               setStatus("Listening");
               // console.log("Recognition started after error");
@@ -366,9 +331,6 @@ const isApiCallingRef = useRef(false);
     };
   }, []);
 
-
-
-// =====================
 
 
 
@@ -634,20 +596,7 @@ const isApiCallingRef = useRef(false);
           </h1>
 
 
-{/*   enable button      */}
-          {/* {!speechAllowed && (
-            <button
-              onClick={enableSpeech}
-              className="bg-blue-600 text-white px-4 py-2 rounded "
-                style={{
-                background: "linear-gradient(90deg, #19294f, #0e1a34)", // dark purple-blue
-                boxShadow:
-                  "0 0 5px #5c7ef0, 0 0 10px #5c7ef0, 0 0 20px #5c7ef0", // subtle glow
-              }}
-            >
-              Enable Voice
-            </button>
-          )} */}
+
         </>
       )}{" "}
     </div>

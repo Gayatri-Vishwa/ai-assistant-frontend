@@ -83,16 +83,7 @@ const inputImage = useRef();
       </div>
 
 
-            {/* { selectedImage &&
-              <button onClick={()=>navigate('/customize2')}
-              className='min-w-[150px] h-[60px]   text-white bg-black rounded-full text-[17px] font-semibold mt-[25px] cursor-pointer'
-                 style={{
-                background: "linear-gradient(90deg, #1b2a4b, #0f1a33)", // dark bluish gradient
-                boxShadow:
-                  "0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #3b82f6", // subtle blue glow
-              }}
-              >
-          Next </button>} */}
+          
 
     </div>
   )
